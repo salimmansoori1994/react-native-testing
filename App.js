@@ -1,35 +1,51 @@
+
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { View, Text , StyleSheet ,Button ,TouchableHighlight} from 'react-native';
 
-class App extends React.Component {
+import { createAppContainer } from 'react-navigation';
+import { createStackNavigator  } from 'react-navigation-stack';    
+import { createDrawerNavigator  } from 'react-navigation-drawer';
+import { Ionicons } from '@expo/vector-icons';
 
+import MyHomeScreen from './drawer_data_set/HomeScreen';
+import MyNotificationsScreen from './drawer_data_set/Notificationscreen';  
+   
+      
+     
+const MyDrawerNavigator = createDrawerNavigator({
+  Home:  MyHomeScreen,     
+Notifications: MyNotificationsScreen,
+},{
+drawerOpenRoute : "DrawerOpen",
+drawerCloseRoute: "DrawerClose",
+drawerToggleRoute: "DrawerToggle",
+drawerBackgroundColor: "#f4511e"
+}); 
 
+const Stackcontoiner= createStackNavigator({
+    defaulthome:MyDrawerNavigator    
+ },{ 
+     defaultNavigationOptions: ({navigation})=>{
+         return{
+            title:'Home page',
+            headerLeft:<Ionicons name="md-menu" style={{marginLeft:10}} size={32} color="white"   onPress={() =>navigation.toggleDrawer()} />, 
+          headerStyle: {
+            backgroundColor: '#f4511e',
+          },
+          headerTintColor: '#fff',  
+          headerTitleStyle: {       
+            fontWeight: 'bold', 
+          },  
+         }
+     },
+   }   
+ );
 
-  render(){
+const AppContainer = createAppContainer(Stackcontoiner);
 
-    const array_list= ['salim','nitin','rohit','abhinay  bhai '];
-    const array_data= array_list.map(data=>{
-    return <Text>{data}</Text>
-    })
-
-
-  return (
-    <View style={styles.container}>  
-      { array_data }
-    </View>
-  );
+export default class App extends React.Component{
+    render(){
+        return <AppContainer />
+    }  
 }
-}
-
-export default App;
- 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1, 
-    backgroundColor: '#00ff00',
-    //backgroundimage: "./assets/flash.png",
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
- 
+  
