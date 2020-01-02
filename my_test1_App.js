@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet,Text,View,Button,TextInput,Alert,ScrollVie,Image} from 'react-native';
+import { StyleSheet,Text,View,Button,TextInput,Alert,ScrollView,Image} from 'react-native';
 
 
 // const Mydata = (props) =>{
